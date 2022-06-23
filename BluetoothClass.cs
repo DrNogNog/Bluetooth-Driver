@@ -20,7 +20,19 @@ namespace Blueberry.Desktop.WindowsApp.Bluetooth
         /// Wrap class and uses packaged Bluetooth
         public BluetoothClass(){
             newWatcher = new BluetoothClass
-            
+            {
+                ScanningMode = BluetoothLEScanningMode.Active
+
+            };
+            //Listen out for new Advertisements
+            newWatcher.Recieved += WatcherAdvertisementRecieved;
+
+
+        }
+        // We don't know what was recieved yet, so leave this blank, revisit later.
+        private void WatcherAdvertisementRecieved(BluetoothClass sender, BluetoothClass reciever)
+        {
+
         }
         #endregion
     }
