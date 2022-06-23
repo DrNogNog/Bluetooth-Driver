@@ -12,7 +12,10 @@ namespace Blueberry.Desktop.WindowsApp.Bluetooth
         
         #endregion
         
+        #region Public Events
 
+        public event Action StoppedListening = () => {};
+        #endregion 
         
         #region Constructor
 
@@ -22,13 +25,20 @@ namespace Blueberry.Desktop.WindowsApp.Bluetooth
             newWatcher = new BluetoothClass
             {
                 ScanningMode = BluetoothLEScanningMode.Active
-
             };
             //Listen out for new Advertisements
             newWatcher.Recieved += WatcherAdvertisementRecieved;
+            newWatcher.Stopped += (watcher, e) => 
+            {
+                //TODO
+                StoppedListening();
+            };
 
 
         }
+        #endregion
+
+        #region Private Methods
         // We don't know what was recieved yet, so leave this blank, revisit later.
         private void WatcherAdvertisementRecieved(BluetoothClass sender, BluetoothClass reciever)
         {
